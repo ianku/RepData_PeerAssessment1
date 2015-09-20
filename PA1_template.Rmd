@@ -7,11 +7,27 @@ output:
 
 
 ## Loading and preprocessing the data
-
+#Load the data
+```{r loaddata}
+library(data.table)
+DT <- data.table(read.csv("activity.csv"))
+```
 
 
 ## What is mean total number of steps taken per day?
+```{r}
+library(ggplot2)
+total.steps <- tapply(DT$steps, DT$date, FUN=sum, na.rm=TRUE)
+#histogram of the total number of steps taken each day
+qplot(total.steps, binwidth=3, xlab="total number of steps taken each day", main="Fig 1")+ geom_histogram(colour="steelblue4", fill="steelblue4")
+#mean total number of steps taken per day
+mean(total.steps, na.rm=TRUE)
+#median total number of steps taken per da
+median(total.steps, na.rm=TRUE)
+```
+Average (Mean) number of steps per day is **9354.23**
 
+The median number of steps per day is **10,395**
 
 
 ## What is the average daily activity pattern?
